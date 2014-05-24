@@ -5,8 +5,10 @@ def application(environ, start_response):
     import json
 
     status = '200 OK'
-    ip = environ.get('HTTP_X_FORWARDED_FOR',
-        environ.get('REMOTE_ADDR')
+    ip = environ.get('HTTP_X_REAL_IP',
+        environ.get('HTTP_X_FORWARDED_FOR',
+            environ.get('REMOTE_ADDR')
+        )
     )
 
     qs = parse_qs(environ.get('QUERY_STRING', ''))
@@ -32,3 +34,5 @@ def application(environ, start_response):
             yield json.dumps(record)
             if callback:
                 yield ')'
+
+    yield
