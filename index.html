@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>	  <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>		 <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>		 <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Find your latitude and longitude</title>
+		<meta name="description" content="Find your latitude and longitude" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="css/normalize.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/animate-custom.css" />
+		<link href='http://fonts.googleapis.com/css?family=Text+Me+One' rel='stylesheet' type='text/css' />
+
+		<script src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/zeroclipboard/ZeroClipboard.min.js"></script>
+		<script src="js/functions.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<div id="logo" class="animated fadeInDown" style="animation-delay:2s;-moz-animation-delay:1s; -webkit-animation-delay:1s; -o-animation-delay:1s; ">
+			<a href="/" title="Refresh the page"><img src="img/whatsmylatlon.png" /></a>
+		</div>
+
+		<section id="container">
+			<article id="latlon" style="display: none;">
+				<p>Just one moment...</p>
+				<h1 class="animated pulse" style="display: none;">
+					<span id="latcopy"><span class="lat" title="Latitude"></span></span>
+					<br />
+					<span id="loncopy"><span class="lon" title="Longitude"></span></span>
+				</h1>
+			</article>
+		</section>
+
+		<footer>
+			<p class="animated fadeIn" style="animation-delay:2s;-moz-animation-delay:1s; -webkit-animation-delay:1s; -o-animation-delay:1s; ">
+				By <a href="http://steadman.io/" title="Steadman">Steadman</a>
+				and <a href="http://ryandc.co.uk/" title="Ryan DC">Ryan DC</a>
+				of <a href="http://substrakt.co.uk/" title="Substrakt">digital studio Substrakt</a>.<br />
+				The site uses Google Analytics for stats, but doesn&rsquo;t store any data from the lookups performed here.
+			</p>
+		</footer>
+
+		<script>
+			var _gaq=[['_setAccount','UA-29554105-8'],['_trackPageview']];
+			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g,s)}(document,'script'));
+		</script>
+
+		<script>
+			ZeroClipboard.config(
+				{
+					moviePath: 'bower_components/zeroclipboard/ZeroClipboard.swf'
+				}
+			);
+
+			$(document).ready(
+				function() {
+					$('#latlon').show();
+
+					if (navigator.geolocation) {
+						$('#latlon p').html('Asking your browser...');
+						navigator.geolocation.getCurrentPosition(
+							showLatLon, useAJAX
+						);
+					} else {
+						useAJAX();
+					}
+				}
+			);
+		</script>
+	</body>
+</html>
